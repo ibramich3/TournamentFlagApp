@@ -1,6 +1,6 @@
 # Tournament Flag App
 
-A Java Swing-based desktop application that displays country flags for FIFA World Cup 2022 teams. Users can select a team from a dropdown menu to view the corresponding flag image.
+A lightweight web and Java Swing application that displays country flags for FIFA World Cup 2022 teams. Users can select a team from a dropdown menu to view the corresponding flag image.
 
 ## Overview
 
@@ -27,9 +27,11 @@ Before running this application, ensure you have the following installed:
 
 ```
 TournamentFlagApp/
+├── index.html                    # GitHub Pages entrypoint
+├── app.js                        # Client-side logic
 ├── src/
-│   ├── TournamentFlagApp.java    # Main application class
-│   └── flags/                    # Flag images directory
+│   ├── TournamentFlagApp.java    # Legacy Swing application
+│   └── flags/                    # Flag images shared by both targets
 │       ├── argentina.png
 │       ├── brazil.png
 │       ├── england.png
@@ -37,9 +39,16 @@ TournamentFlagApp/
 │       ├── germany.png
 │       ├── portugal.png
 │       └── spain.png
-├── bin/                          # Compiled class files
-└── README.md                     # This file
+├── bin/                          # Compiled Swing class files
+└── README.md
 ```
+
+## GitHub Pages Deployment
+
+1. Push the repository to GitHub and enable Pages (Settings → Pages) with the branch and folder that contains `index.html` (typically `main` + `/root`).
+2. The static assets are referenced with relative URLs (`./app.js`, `./src/flags/*.png`), so they work under any GitHub Pages base path (e.g., `/username/TournamentFlagApp/`).
+3. After Pages finishes building, visit the published URL to interact with the dropdown and random flag button.
+4. To add more teams, drop their flag PNGs into `src/flags/` and append them to the `flags` array inside `app.js`, then push again.
 
 ## Flag Images
 
