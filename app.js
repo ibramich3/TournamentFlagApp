@@ -8,40 +8,29 @@ const flags = [
   { name: "Spain", file: "./src/flags/spain.png" },
 ];
 
-const selectEl = document.getElementById("country-select");
-const flagDisplay = document.getElementById("flag-display");
-const randomBtn = document.getElementById("random-flag");
+const select = document.getElementById("country-select");
+const flagBox = document.getElementById("flag");
+const randomBtn = document.getElementById("random-btn");
 
-function populateSelect() {
-  flags.forEach((flag, index) => {
-    const option = document.createElement("option");
-    option.value = index;
-    option.textContent = flag.name;
-    selectEl.appendChild(option);
-  });
-}
+flags.forEach((flag, idx) => {
+  const option = new Option(flag.name, idx);
+  select.add(option);
+});
 
-function renderFlag(flag) {
+function showFlag(index) {
+  const flag = flags[index];
   if (!flag) {
-    flagDisplay.innerHTML = "<p>Select a country to preview its flag.</p>";
+    flagBox.textContent = "Pick a country above.";
     return;
   }
-
-  flagDisplay.innerHTML = `
-    <img src="${flag.file}" alt="${flag.name} flag" />
-    <p>${flag.name}</p>
-  `;
+  flagBox.innerHTML = `<img src="${flag.file}" alt="${flag.name} flag" width="220" /><p>${flag.name}</p>`;
 }
 
-selectEl.addEventListener("change", (event) => {
-  const selectedIndex = Number(event.target.value);
-  renderFlag(flags[selectedIndex]);
-});
-
+select.addEventListener("change", (e) => showFlag(e.target.value));
 randomBtn.addEventListener("click", () => {
-  const randomIndex = Math.floor(Math.random() * flags.length);
-  selectEl.value = randomIndex;
-  renderFlag(flags[randomIndex]);
+  const idx = Math.floor(Math.random() * flags.length);
+  select.value = idx;
+  showFlag(idx);
 });
 
-populateSelect();
+showFlag(); // initial message
